@@ -1,16 +1,14 @@
 #-*- coding:utf-8 -*-
 # Python 3.6.1
-import hashlib,base64,string,os,sys,time,logging,string
+import hashlib,base64,string,os,sys,time,logging,string,re
 from module import tools,argparse,random,printc
-tools.importModules()#导入需要的第三方包,如果导入失败提醒用户安装
-# try:
-#     import PIL
-#     from PIL import Image
-# except:
-#     info1="\n[-] 检测到你还没有安装依赖包PIL,请使用命令pip install PIL 进行安装"
-# from module import argparse
-# from module import random
-# from module import printc
+try:
+    import PIL
+    from PIL import Image
+except:
+    msg="\n[-] 检测到你还没有安装依赖包PIL,请使用命令pip install PIL 进行安装"
+    printc.printf(msg,'red')
+
 presentAdd = os.getcwd()
 sys.path.append(presentAdd+"\\module\\urllib")
 sys.path.append(presentAdd+"\\module\\zxing")
@@ -59,15 +57,15 @@ def menu():
        -dbin   Decimal To Binary 
        -doctal Decimal to Octal 
        -dhex   Decimal to Hexadecimal
-       -ord    Letter To ASCII  attention      Example:  -ord asdfasfa      -ord="dfafs afasfa  asfasf"
-       -chr    ASCII  To Letters               Example:  -chr 105           -chr = "102 258 654"
+       -ord    Letter To ASCII  attention      Example:  -ord asdfasfa      -ord "dfafs afasfa  asfasf"
+       -chr    ASCII  To Letters               Example:  -chr 105           -chr "102 258 654"
        -roten  Rot Encode                      Example:  -roten dafsdfa -offset 13  Means rot_13 Encode
        -rotde  Rot Decode                      Example:  -rotde dafsdfa -offset 13  Means rot_13 Decode
        -offset Rot Encode or Decode Offset  
-       -gqr    Generate QRcode images          Example:  -gqr = "I love you"
-       -pqr    Parse QRcode  images            Example:  -pqr = "C:\\QR.png"  
-       -add    File address                    Example:  -add = "C:\\1.txt"
-       -r2i    Convert RGB txt to Images       Example:  -r2i = "C:\\rgb.txt" -x 100 -y 200      
+       -gqr    Generate QRcode images          Example:  -gqr  "I love you"
+       -pqr    Parse QRcode  images            Example:  -pqr  "C:\\QR.png"  
+       -add    File address                    Example:  -add  "C:\\1.txt"
+       -r2i    Convert RGB txt to Images       Example:  -r2i  "C:\\rgb.txt" -x 100 -y 200      
        -x      X 
        -y      y   
       """
@@ -215,15 +213,15 @@ def menu():
                     y = options.y
                     rgb2png(int(x),int(y),file_add)
                 else:
-                    info1="[-] 您需要输入生成图片的尺寸y参数"
+                    info1="\n\n[-] 您需要输入生成图片的尺寸y参数"
                     printc.printf(info1,'red')
             else:
-                info1="[-] 您需要输入生成图片的尺寸x参数"
+                info1="\n\n[-] 您需要输入生成图片的尺寸x参数"
                 printc.printf(info1,'red')  
         else:
             helpInfo()
     except:
-        info1="\n[-] 是不是输错参数了,试一下python tool.py -help 看一下帮助信息吧"
+        info1="\n\n[-]是不是输错参数了,试一下python tool.py -help 看一下帮助信息吧"
         printc.printf(info1,'red')
 
 def helpInfo():
@@ -249,15 +247,15 @@ def helpInfo():
        -dbin   Decimal To Binary 
        -doctal Decimal to Octal 
        -dhex   Decimal to Hexadecimal
-       -ord    Letter To ASCII  attention      Example:  -ord asdfasfa      -ord="dfafs afasfa  asfasf"
-       -chr    ASCII  To Letters               Example:  -chr 105           -chr = "102 258 654"
+       -ord    Letter To ASCII  attention      Example:  -ord asdfasfa      -ord "dfafs afasfa  asfasf"
+       -chr    ASCII  To Letters               Example:  -chr 105           -chr "102 258 654"
        -roten  Rot Encode                      Example:  -roten dafsdfa -offset 13  Means rot_13 Encode
        -rotde  Rot Decode                      Example:  -rotde dafsdfa -offset 13  Means rot_13 Decode
        -offset Rot Encode or Decode Offset  
-       -gqr    Generate QRcode images          Example:  -gqr = "I love you"
-       -pqr    Parse QRcode  images            Example:  -pqr = "C:\\QR.png"  
-       -add    File address                    Example:  -add = "C:\\1.txt"
-       -r2i    Convert RGB txt to Images       Example:  -r2i = "C:\\rgb.txt" -x 100 -y 200      
+       -gqr    Generate QRcode images          Example:  -gqr  "I love you"
+       -pqr    Parse QRcode  images            Example:  -pqr  "C:\\QR.png"  
+       -add    File address                    Example:  -add  "C:\\1.txt"
+       -r2i    Convert RGB txt to Images       Example:  -r2i  "C:\\rgb.txt" -x 100 -y 200      
        -x      X 
        -y      y   
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++""","skyblue")
@@ -268,7 +266,7 @@ def md5(s):
     md  = hashlib.md5()
     s = s.encode(encoding = 'utf-8')
     md.update(s)
-    info1='Original:'+original
+    info1='\nOriginal:'+original
     info2='Md5 Encryption:'+md.hexdigest()
     printc.printf(info1,'blue')
     printc.printf(info2,'green')
@@ -278,7 +276,7 @@ def sh1(s):
     original = s
     sh = hashlib.sha1()
     s = s.encode(encoding='utf-8')
-    info1='Original:' + original
+    info1='\nOriginal:' + original
     info2='SH1 Encryption:' + sh.hexdigest()
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
@@ -286,7 +284,7 @@ def sh1(s):
 #将字符串转换为base64编码格式
 def stringToB64(s):
     res = base64.b64encode(s)
-    info1 = 'Original:' + str(s)[2:-1]
+    info1='\nOriginal:' + str(s)[2:-1]
     info2 = 'Base64 encode:' + str(res)[2:-1]
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
@@ -294,7 +292,7 @@ def stringToB64(s):
 #将base64编码格式转化为正常的字符类型
 def b64ToString(s):
     decode = base64.b64decode(s)
-    info1 = 'Base64:' + str(s)[2:-1]
+    info1='\nBase64:' + str(s)[2:-1]
     info2 = 'Base64 decode:' + str(decode)[2:-1]
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
@@ -302,7 +300,7 @@ def b64ToString(s):
 #将字符串转为b32编码格式
 def stringToB32(s):
     encode = base64.b32encode(s)
-    info1 = 'Original:' + str(s)[2:-1]
+    info1='\nOriginal:' + str(s)[2:-1]
     info2 = 'Base32 encode:' + str(encode)[2:-1]
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
@@ -311,7 +309,7 @@ def stringToB32(s):
 #将base32编码格式转化为正常的字符类型
 def b32ToString(s):
     decode = base64.b32decode(s)
-    info1 = 'Base32:' + str(s)[2:-1]
+    info1='\nBase32:' + str(s)[2:-1]
     info2 = 'Base32 decode:' + str(decode)[2:-1]
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
@@ -320,7 +318,7 @@ def b32ToString(s):
 # 将字符串转为base16编码格式
 def stringToB16(s):
     encode = base64.b16encode(s)
-    info1 = 'Original:' + str(s)[2:-1]
+    info1='\nOriginal:' + str(s)[2:-1]
     info2 = 'Base16 encode:' + str(encode)[2:-1]
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
@@ -329,7 +327,7 @@ def stringToB16(s):
 # 将base16编码格式转化为正常的字符类型
 def b16ToString(s):
     decode = base64.b16decode(s)
-    info1 = 'Base16:' + str(s)[2:-1]
+    info1='\nBase16:' + str(s)[2:-1]
     info2 = 'Base16 decode:' + str(decode)[2:-1]
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
@@ -352,7 +350,7 @@ def urlEncode(s):
             encodeString=encodeString+visibleCharacter[i]
         else:
             encodeString=encodeString+urllib.parse.quote(i)
-    info1 = 'Original:' + s
+    info1='\nOriginal:' + s
     info2 = 'URL encode:' + encodeString
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
@@ -362,7 +360,7 @@ def urlEncode(s):
 #进行url编码
 def urlDecode(s):
     decode = urllib.parse.unquote(s)
-    info1 = 'URL encode:' + s
+    info1='\nURL encode:' + s
     info2 = 'URL decode:' + decode
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
@@ -376,7 +374,7 @@ def binToDec(s):
     result = ''
     for i in s:
         result = result+" "+str(int(i,2))
-    info1 = 'Binary :'+str(original)
+    info1='\nBinary :'+str(original)
     info2 = 'Decimal :' + str(result)
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
@@ -390,7 +388,7 @@ def octToDec(s):
     result = ''
     for i in s:
         result = result+" "+str(int(i, 8))
-    info1 = 'Octal :' + str(original)
+    info1='\nOctal :' + str(original)
     info2 = 'Decimal :' + str(result)
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
@@ -404,7 +402,7 @@ def hexToDec(s):
     result = ''
     for i in s:
         result = result+" "+str(int(i, 16))
-    info1 = 'Hex :' + str(original)
+    info1='\nHex :' + str(original)
     info2 = 'Decimal :' + str(result)
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
@@ -419,7 +417,7 @@ def decToBin(s):
     for i in s:
         i = int(i)
         result =result+ " "+bin(i)
-    info1 = 'Decimal:' + str(original)
+    info1='\nDecimal:' + str(original)
     info2 = 'Binary:' + str(result)
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
@@ -437,7 +435,7 @@ def decToOct(s):
     for i in s:
         i = int(i)
         result = result+" "+oct(i)
-    info1 = 'Decimal :' + str(original)
+    info1='\nDecimal :' + str(original)
     info2 = 'Octal :' + str(result)
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
@@ -452,7 +450,7 @@ def decToHex(s):
     for i in s:
         i = int(i)
         result = result+" "+hex(i)
-    info1 = 'Decimal :' + str(original)
+    info1='\nDecimal :' + str(original)
     info2 = 'Hex :' + str(result)
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
@@ -464,7 +462,7 @@ def lettToASCII(s):
    result = ''
    for i in s:
        result = result+str(ord(i)) + ' '
-   info1 = 'Letters:'+s
+   info1='\nLetters:'+s
    info2 = 'ASCII  :'+result
    printc.printf(info1, 'blue')
    printc.printf(info2, 'green')
@@ -479,7 +477,7 @@ def asciiToLett(s):
        i = int(i)
        result =result + chr(i)
 
-   info1 = 'ASCII    :'+s
+   info1='\nASCII    :'+s
    info2 = 'Letters  :'+result
    printc.printf(info1, 'blue')
    printc.printf(info2, 'green')
@@ -506,10 +504,10 @@ def rotDecode(st,offset):
 #生成二维码图片
 def generateQR(data):
     QRImagePath =os.getcwd()+"/qrcode.png"
-    imageInfo="照片存储在:"+QRImagePath
-    messageInfo="信息:"+data
-    printc.printf(messageInfo,"blue")
-    printc.printf(imageInfo,"green")
+    info1="\n照片存储在:"+QRImagePath
+    info2="信息:"+data
+    printc.printf(info1,"blue")
+    printc.printf(info2,"green")
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -538,13 +536,10 @@ def parseQR(filename):
     zx=zxing.BarCodeReader()
     data=''
     zxdata = zx.decode('%s%s.jpg' % (os.path.basename(filename).split('.')[0], ran))
-    info1="二维码路径:"+filename
+    info1="\n二维码路径:"+filename
     info2="二维码详情:"+str(zxdata)
     printc.printf(info1,"blue")
     printc.printf(info2,"green")
-
-#这里要使用上面的函数,在不破坏前面的前提下重新修改一下函数
-
 
 #将字符串进行unicode编码
 def uniencode(s):
@@ -553,7 +548,7 @@ def uniencode(s):
     s=tools.decToHex(s)
     s=" "+s
     s=s.replace(" 0x","\\u00")
-    info1="String       : "+original
+    info1="\nString       : "+original
     info2="UnicodeEncode: "+s
 
     printc.printf(info1, "blue")
@@ -598,7 +593,7 @@ def htmlencode(s):
         temp = temp +"&#"+ str(s[i]) + ";"
     s=temp
 
-    info1="Original String: "+original
+    info1="\nOriginal String: "+original
     info2="HTML   Encoding: "+s
     printc.printf(info1, "blue")
     printc.printf(info2, "green")
@@ -616,7 +611,7 @@ def htmldecode(s):
             temp = temp + str(s[i])
     s=temp
     s=tools.asciiToLett(s)
-    info1="HTML Encode:"+original
+    info1="\nHTML Encode:"+original
     info2="HTML Decode:"+s
     printc.printf(info1, "blue")
     printc.printf(info2, "green")
@@ -628,26 +623,25 @@ def rgb2png(x,y,add):
         # y = 12 #y坐标  x*y = 行数
         im = Image.new("RGB",(x,y))#创建图片
         #file = open() #打开rbg值文件
-        with open(add,"rb") as file:
-            #通过一个个rgb点生成图片
-            for i in range(0,x):
-                for j in range(0,y):
-                    line = str(file.readline())[2:-5]#获取一行
-                    rgb = line.split(",")#分离rgb
-                    im.putpixel((i,j),(int(rgb[0]),int(rgb[1]),int(rgb[2])))#rgb转化为像素
+        lists = tools.readFile2list(add)
+        index=0
+        for i in range(0,x):
+            for j in range(0,y):
+                line=lists[index]
+                index+=1
+                rgb = line.split(",")#分离rgb
+                im.putpixel((i,j),(int(rgb[0]),int(rgb[1]),int(rgb[2])))#rgb转化为像素
         im.save("res.png")
-        file.close()
         os.system(' %s' % "res.png")
         file_name="res.png"
         file_add = os.getcwd()+"/"+file_name
-        file.close()
-        os.system(' %s' % file_name)
-        info1="源RGB文件地址 :  "+add
+        # os.system(' %s' % file_name)
+        info1="\n源RGB文件地址 :  "+add
         info2="生成PNG的地址 :  "+file_add
         printc.printf(info1, "blue")
         printc.printf(info2, "green")
     except:
-        info1="[-] 您输入的x和y值可能不合适,再试一下其他xy组合吧"
+        info1="\n\n[-] 您输入的x和y值可能不合适,再试一下其他x y组合吧,注意xy相乘结果应该等于txt文件的总行数"
         printc.printf(info1,'red')
 
 #将照片转化为RGB值并保存为txt文件
@@ -664,7 +658,7 @@ def png2rgb(add):
             print(image[x][y])
             # f.write(str(image[x][y]))
     f.close
-    info1="源照片地址:  "+add
+    info1="\n源照片地址:  "+add
     info2="生成RGB的txt文件地址:"+file_add
     printc.printf(info1, "blue")
     printc.printf(info2, "green")
