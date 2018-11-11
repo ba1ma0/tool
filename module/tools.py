@@ -1,7 +1,7 @@
 import re
 from module import printc
 def split2List(s):
-    p="\d+"
+    p="\w+"
     try:
         return re.findall(p,s)
     except:
@@ -24,7 +24,7 @@ def importModules():
 # 将ASCII转化为对应的字母以及字符
 def asciiToLett(s):
     #list = s.split(' ')
-    list=tools.split2List(s)
+    list=split2List(s)
     print(list)
     result = ''
     for i in list:

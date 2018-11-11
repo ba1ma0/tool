@@ -1,4 +1,5 @@
 #-*- coding:utf-8 -*-
+# Python 3.6.1
 import hashlib,base64,string,os,sys,time,logging,string
 from module import tools,argparse,random,printc
 tools.importModules()#导入需要的第三方包,如果导入失败提醒用户安装
@@ -370,7 +371,8 @@ def urlDecode(s):
 #将二进制转化为十进制
 def binToDec(s):
     original = s
-    s = s.split(" ")
+    #s = s.split(" ")
+    s=tools.split2List(s)
     result = ''
     for i in s:
         result = result+" "+str(int(i,2))
@@ -383,7 +385,8 @@ def binToDec(s):
 # 将八进制转化为十进制
 def octToDec(s):
     original = s
-    s = s.split(" ")
+    #s = s.split(" ")
+    s=tools.split2List(s)
     result = ''
     for i in s:
         result = result+" "+str(int(i, 8))
@@ -396,7 +399,8 @@ def octToDec(s):
 # 将十六进制转化为十进制
 def hexToDec(s):
     original = s
-    s = s.split(" ")
+    #s = s.split(" ")
+    s=tools.split2List(s)
     result = ''
     for i in s:
         result = result+" "+str(int(i, 16))
@@ -409,7 +413,8 @@ def hexToDec(s):
 # 将十进制转化为二进制
 def decToBin(s):
     original=s
-    s =s.split(" ")
+    #s =s.split(" ")
+    s=tools.split2List(s)
     result=''
     for i in s:
         i = int(i)
@@ -426,7 +431,8 @@ def test(s):
 # 将十进制转化为八进制
 def decToOct(s):
     original = s
-    s = s.split(" ")
+    #s = s.split(" ")
+    s=tools.split2List(s)
     result = ''
     for i in s:
         i = int(i)
@@ -440,7 +446,8 @@ def decToOct(s):
 # 将十进制转化为十六进制
 def decToHex(s):
     original = s
-    s = s.split(" ")
+    #s = s.split(" ")
+    s=tools.split2List(s)
     result = ''
     for i in s:
         i = int(i)
