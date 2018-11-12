@@ -213,15 +213,15 @@ def menu():
                     y = options.y
                     rgb2png(int(x),int(y),file_add)
                 else:
-                    info1="\n\n[-] 您需要输入生成图片的尺寸y参数"
+                    info1="\n[-] 您需要输入生成图片的尺寸y参数"
                     printc.printf(info1,'red')
             else:
-                info1="\n\n[-] 您需要输入生成图片的尺寸x参数"
+                info1="\n[-] 您需要输入生成图片的尺寸x参数"
                 printc.printf(info1,'red')  
         else:
             helpInfo()
     except:
-        info1="\n\n[-]是不是输错参数了,试一下python tool.py -help 看一下帮助信息吧"
+        info1="\n[-]是不是输错参数了,试一下python tool.py -help 看一下帮助信息吧"
         printc.printf(info1,'red')
 
 def helpInfo():
