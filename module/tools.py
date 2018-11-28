@@ -67,3 +67,22 @@ def readFile2list(add):
         i=str(i)
         l.append(re.findall(p,i)[0])
     return l 
+#删除文件中无用且重复的信息            
+def delUseless(add):
+    try:
+        s=[]
+        f=open(add,"r+")
+        for i in f.readlines():
+            i=i.replace("\n","") 
+            s.append(i)
+        f.close()
+        s=list(set(s))
+        with open(add,"w+") as f:
+            for i in s:
+                f.write(i+"\n")
+            f.close()
+        msg="\n[+] 已经清除 {add} 文件中的重复元素".format(add=add)
+        printc.printf(msg,"green")
+    except:
+        msg1="[-] 是不是路径输错了呢?"
+        printc.printf(msg1,"red")

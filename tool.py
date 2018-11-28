@@ -65,6 +65,7 @@ def menu():
        -gqr    Generate QRcode images          Example:  -gqr  "I love you"
        -pqr    Parse QRcode  images            Example:  -pqr  "C:\\QR.png"  
        -add    File address                    Example:  -add  "C:\\1.txt"
+       -delete Delete File's repeated info     Example:  -del  "C:\\1.txt" 
        -r2i    Convert RGB txt to Images       Example:  -r2i  "C:\\rgb.txt" -x 100 -y 200      
        -x      X 
        -y      y   
@@ -101,6 +102,7 @@ def menu():
     parser.add_argument('-rotde', dest='rotde', help='Rot Decode                      Example:  -rotde dafsdfa -offset 13  Means rot_13 Decode')
     parser.add_argument('-gqr', dest='gqr', help='Generate QRcode images          Example:  -gqr = "I love you"')
     parser.add_argument('-pqr', dest='pqr', help='Parse QRcode  images            Example:  -pqr = "C:\\QR.png"')
+    parser.add_argument('-delete', dest='delete', help='Delete File\'s repeated info     Example:  -del  "C:\\1.txt" ')
     parser.add_argument('-i2r', dest='i2r', help='Convert Image to RGB txt        Example:  -i2r = "C:\\png.png"')
     parser.add_argument('-r2i', dest='r2i', help='Convert RGB txt to Images       Example:  -r2i = "C:\\rgb.txt" -x 100 -y 200 ')
     parser.add_argument('-x', dest='x', help='X')
@@ -205,6 +207,9 @@ def menu():
         elif options.i2r:
             file_add=options.i2r
             png2rgb(file_add)
+        elif options.delete:
+            add=options.delete
+            tools.delUseless(add)
         elif options.r2i:
             file_add=options.r2i
             if options.x:
@@ -255,6 +260,7 @@ def helpInfo():
        -gqr    Generate QRcode images          Example:  -gqr  "I love you"
        -pqr    Parse QRcode  images            Example:  -pqr  "C:\\QR.png"  
        -add    File address                    Example:  -add  "C:\\1.txt"
+       -delete Delete File's repeated info     Example:  -del  "C:\\1.txt" 
        -r2i    Convert RGB txt to Images       Example:  -r2i  "C:\\rgb.txt" -x 100 -y 200      
        -x      X 
        -y      y   
@@ -291,7 +297,7 @@ def stringToB64(s):
 
 #将base64编码格式转化为正常的字符类型
 def b64ToString(s):
-    decode = base64.b64decode(s)
+    decode = base64.b64decode(s).decode("utf-8")
     info1='\nBase64:' + str(s)[2:-1]
     info2 = 'Base64 decode:' + str(decode)[2:-1]
     printc.printf(info1, 'blue')

@@ -2,6 +2,7 @@
 ========
 ## 更新日志
 1. 新增将含有rgb值的txt文件转化为png照片的实用功能 python tool.py -r2i  "C:\rgb.txt" -x 100 -y 200
+2. 新增去重功能,可以使用-delete 1.txt 将该文件中所有重复的内容删除掉
 
 ## 使用说明 
 这是一款在Windows上基于python3的强大的编码解码的工具!
@@ -39,6 +40,7 @@
        -gqr    Generate QRcode images          Example:  -gqr  "I love you"
        -pqr    Parse QRcode  images            Example:  -pqr  "C:\QR.png"
        -add    File address                    Example:  -add  "C:\1.txt"
+       -delete Delete File's repeated info     Example:  -del  "C:\1.txt"
        -r2i    Convert RGB txt to Images       Example:  -r2i  "C:\rgb.txt" -x 100 -y 200
        -x      X
        -y      y
@@ -93,6 +95,7 @@ What you need to do is just type python tool.py and then you can get the result 
        -gqr    Generate QRcode images          Example:  -gqr  "I love you"
        -pqr    Parse QRcode  images            Example:  -pqr  "C:\QR.png"
        -add    File address                    Example:  -add  "C:\1.txt"
+       -delete Delete File's repeated info     Example:  -del  "C:\1.txt"
        -r2i    Convert RGB txt to Images       Example:  -r2i  "C:\rgb.txt" -x 100 -y 200
        -x      X
        -y      y
