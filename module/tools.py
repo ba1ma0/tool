@@ -70,15 +70,16 @@ def readFile2list(add):
 #删除文件中无用且重复的信息            
 def delUseless(add):
     try:
-        s=[]
+        l1=l2=[]
         f=open(add,"r+")
         for i in f.readlines():
             i=i.replace("\n","") 
-            s.append(i)
+            l1.append(i)
         f.close()
-        s=list(set(s))
+        # s=list(set(s))
+        l2 = sorted(set(l1),key=l1.index)
         with open(add,"w+") as f:
-            for i in s:
+            for i in l2:
                 f.write(i+"\n")
             f.close()
         msg="\n[+] 已经清除 {add} 文件中的重复元素".format(add=add)
