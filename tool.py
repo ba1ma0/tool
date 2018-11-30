@@ -173,13 +173,17 @@ def menu():
         elif options.roten and options.offset:
             s = options.roten
             offset = options.offset
-            print("Origina      :"+s)
-            print("Rot{offset} Encode:".format(offset=offset)+rotEncode(s,offset))
+            msg1="\nOrigina    :"+s
+            msg2="Rot{offset} Encode:".format(offset=offset)+rotEncode(s,offset)
+            printc.printf(msg1,'blue')
+            printc.printf(msg2,'green')
         elif options.rotde and options.offset:
             s = options.rotde
             offset = options.offset
-            print("Rot_{offset} Encode:".format(offset=offset) + s)
-            print("Rot_{offset} Decode:".format(offset=offset)+ str(rotDecode(s, offset)))
+            msg1="\nRot_{offset} Encode:".format(offset=offset) + s
+            msg2="Rot_{offset} Decode:".format(offset=offset)+ str(rotDecode(s, offset))
+            printc.printf(msg1,"blue")
+            printc.printf(msg2,"green")
         elif options.gqr:
             print()
             s = options.gqr
