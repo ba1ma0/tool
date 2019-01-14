@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 # Python 3.6.1
 import hashlib,base64,string,os,sys,time,logging,string,re
-from module import tools,argparse,random,printc
+from module import tools,argparse,random,printc,noAlphaPayload
 try:
     import PIL
     from PIL import Image
@@ -108,130 +108,130 @@ def menu():
     parser.add_argument('-x', dest='x', help='X')
     parser.add_argument('-y', dest='y', help='y')
     parser.add_argument('-offset', dest='offset', type=int,help=' ')
-    try:
-        options = parser.parse_args()
-        if options.md :
-            s = options.md
-            md5(s)
-        elif options.sh:
-            s = options.sh
-            sh1(s)
-        elif options.b64:
-            s = options.b64.encode()
-            stringToB64(s)
-        elif options.b32:
-            s = options.b32.encode()
-            stringToB32(s)
-        elif options.b16:
-            s = options.b16.encode()
-            stringToB16(s)
-        elif options.db64:
-            s = options.db64.encode()
-            b64ToString(s)
-        elif options.db32:
-            s = options.db32.encode()
-            b32ToString(s)
-        elif options.db16:
-            s = options.db16.encode()
-            b16ToString(s)
-        elif options.urlen:
-            s = options.urlen
-            urlEncode(s)
-        elif options.urlde:
-            s = options.urlde
-            urlDecode(s)
-        elif options.bin:
-            s = options.bin
-            binToDec(s)
-        elif options.octal:
-            s = options.octal
-            octToDec(s)
-        elif options.hex:
-            s = options.hex
-            hexToDec(s)
-        elif options.dbin:
-            s = options.dbin
-            decToBin(s)
-        elif options.doctal:
-            s = options.doctal
-            decToOct(s)
-        elif options.dhex:
-            s = options.dhex
-            decToHex(s)
-        elif options.doctal:
-            s = options.doctal
-            decToOct(s)
-        elif options.dhex:
-            s = options.dhex
-            decToHex(s)
-        elif options.ord:
-            s = options.ord
-            lettToASCII(s)
-        elif options.chr:
-            s = options.chr
-            asciiToLett(s)
-        elif options.roten and options.offset:
-            s = options.roten
-            offset = options.offset
-            msg1="\nOrigina    :"+s
-            msg2="Rot{offset} Encode:".format(offset=offset)+rotEncode(s,offset)
-            printc.printf(msg1,'blue')
-            printc.printf(msg2,'green')
-        elif options.rotde and options.offset:
-            s = options.rotde
-            offset = options.offset
-            msg1="\nRot_{offset} Encode:".format(offset=offset) + s
-            msg2="Rot_{offset} Decode:".format(offset=offset)+ str(rotDecode(s, offset))
-            printc.printf(msg1,"blue")
-            printc.printf(msg2,"green")
-        elif options.gqr:
-            print()
-            s = options.gqr
-            generateQR(s)
-        elif options.pqr:
-            print()
-            s = options.pqr
-            parseQR(s)
-        elif options.unien:
-            print()
-            s = options.unien
-            uniencode(s)
-        elif options.unide:
-            print()
-            s = options.unide
-            unidecode(s)
-        elif options.hten:
-            print()
-            s = options.hten
-            htmlencode(s)
-        elif options.htde:
-            print()
-            s = options.htde
-            htmldecode(s)
-        elif options.i2r:
-            file_add=options.i2r
-            png2rgb(file_add)
-        elif options.delete:
-            add=options.delete
-            tools.delUseless(add)
-        elif options.r2i:
-            file_add=options.r2i
-            if options.x:
-                x=options.x
-                if options.y:
-                    y = options.y
-                    rgb2png(int(x),int(y),file_add)
-                else:
-                    info1="\n[-] 您需要输入生成图片的尺寸y参数"
-                    printc.printf(info1,'red')
+    # try:
+    options = parser.parse_args()
+    if options.md :
+        s = options.md
+        md5(s)
+    elif options.sh:
+        s = options.sh
+        sh1(s)
+    elif options.b64:
+        s = options.b64
+        stringToB64(s)
+    elif options.b32:
+        s = options.b32
+        stringToB32(s)
+    elif options.b16:
+        s = options.b16
+        stringToB16(s)
+    elif options.db64:
+        s = options.db64
+        b64ToString(s)
+    elif options.db32:
+        s = options.db32
+        b32ToString(s)
+    elif options.db16:
+        s = options.db16
+        b16ToString(s)
+    elif options.urlen:
+        s = options.urlen
+        urlEncode(s)
+    elif options.urlde:
+        s = options.urlde
+        urlDecode(s)
+    elif options.bin:
+        s = options.bin
+        binToDec(s)
+    elif options.octal:
+        s = options.octal
+        octToDec(s)
+    elif options.hex:
+        s = options.hex
+        hexToDec(s)
+    elif options.dbin:
+        s = options.dbin
+        decToBin(s)
+    elif options.doctal:
+        s = options.doctal
+        decToOct(s)
+    elif options.dhex:
+        s = options.dhex
+        decToHex(s)
+    elif options.doctal:
+        s = options.doctal
+        decToOct(s)
+    elif options.dhex:
+        s = options.dhex
+        decToHex(s)
+    elif options.ord:
+        s = options.ord
+        lettToASCII(s)
+    elif options.chr:
+        s = options.chr
+        asciiToLett(s)
+    elif options.roten and options.offset:
+        s = options.roten
+        offset = options.offset
+        msg1="\nOrigina    :"+s
+        msg2="Rot{offset} Encode:".format(offset=offset)+rotEncode(s,offset)
+        printc.printf(msg1,'blue')
+        printc.printf(msg2,'green')
+    elif options.rotde and options.offset:
+        s = options.rotde
+        offset = options.offset
+        msg1="\nRot_{offset} Encode:".format(offset=offset) + s
+        msg2="Rot_{offset} Decode:".format(offset=offset)+ str(rotDecode(s, offset))
+        printc.printf(msg1,"blue")
+        printc.printf(msg2,"green")
+    elif options.gqr:
+        print()
+        s = options.gqr
+        generateQR(s)
+    elif options.pqr:
+        print()
+        s = options.pqr
+        parseQR(s)
+    elif options.unien:
+        print()
+        s = options.unien
+        uniencode(s)
+    elif options.unide:
+        print()
+        s = options.unide
+        unidecode(s)
+    elif options.hten:
+        print()
+        s = options.hten
+        htmlencode(s)
+    elif options.htde:
+        print()
+        s = options.htde
+        htmldecode(s)
+    elif options.i2r:
+        file_add=options.i2r
+        png2rgb(file_add)
+    elif options.delete:
+        add=options.delete
+        tools.delUseless(add)
+    elif options.r2i:
+        file_add=options.r2i
+        if options.x:
+            x=options.x
+            if options.y:
+                y = options.y
+                rgb2png(int(x),int(y),file_add)
             else:
-                info1="\n[-] 您需要输入生成图片的尺寸x参数"
-                printc.printf(info1,'red')  
+                info1="\n[-] 您需要输入生成图片的尺寸y参数"
+                printc.printf(info1,'red')
         else:
-            helpInfo()
-    except:
-        info1="\n[-]是不是输错参数了,试一下python tool.py -help 看一下帮助信息吧"
-        printc.printf(info1,'red')
+            info1="\n[-] 您需要输入生成图片的尺寸x参数"
+            printc.printf(info1,'red')  
+    else:
+        helpInfo()
+    # except:
+    #     info1="\n[-]是不是输错参数了,试一下python tool.py -help 看一下帮助信息吧"
+    #     printc.printf(info1,'red')
 
 def helpInfo():
     printc.printf("""++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -261,6 +261,7 @@ def helpInfo():
        -roten  Rot Encode                      Example:  -roten dafsdfa -offset 13  Means rot_13 Encode
        -rotde  Rot Decode                      Example:  -rotde dafsdfa -offset 13  Means rot_13 Decode
        -offset Rot Encode or Decode Offset  
+       -code   
        -gqr    Generate QRcode images          Example:  -gqr  "I love you"
        -pqr    Parse QRcode  images            Example:  -pqr  "C:\\QR.png"  
        -add    File address                    Example:  -add  "C:\\1.txt"
@@ -293,52 +294,68 @@ def sh1(s):
 
 #将字符串转换为base64编码格式
 def stringToB64(s):
+    origin = tools.change2Str(s)
+    s = tools.change2Bytes(s)
     res = base64.b64encode(s)
-    info1='\nOriginal:' + str(s)[2:-1]
-    info2 = 'Base64 encode:' + str(res)[2:-1]
+    res = tools.change2Str(res)
+    info1='\nOriginal:' + origin
+    info2 = 'Base64 encode:' + res
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
 
 #将base64编码格式转化为正常的字符类型
 def b64ToString(s):
-    decode = base64.b64decode(s).decode("utf-8")
-    info1='\nBase64:' + str(s)[2:-1]
-    info2 = 'Base64 decode:' + str(decode)[2:-1]
+    origin = tools.change2Str(s)
+    decode = base64.b64decode(s)
+    decode = tools.change2Str(decode)
+    info1='\nBase64:' + origin
+    info2 = 'Base64 decode:' + decode
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
 
 #将字符串转为b32编码格式
 def stringToB32(s):
+    origin = tools.change2Str(s)
+    s = tools.change2Bytes(s)
     encode = base64.b32encode(s)
-    info1='\nOriginal:' + str(s)[2:-1]
-    info2 = 'Base32 encode:' + str(encode)[2:-1]
+    encode = tools.change2Str(encode)
+    info1='\nOriginal:' + origin
+    info2 = 'Base32 encode:' + encode
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
 
     
 #将base32编码格式转化为正常的字符类型
 def b32ToString(s):
+    origin = tools.change2Str(s)
     decode = base64.b32decode(s)
-    info1='\nBase32:' + str(s)[2:-1]
-    info2 = 'Base32 decode:' + str(decode)[2:-1]
+    decode = tools.change2Str(decode)
+    info1='\nBase32:' + origin
+    info2 = 'Base32 decode:' + decode
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
 
 
 # 将字符串转为base16编码格式
 def stringToB16(s):
+    origin = tools.change2Str(s)
+    s = tools.change2Bytes(s)
     encode = base64.b16encode(s)
-    info1='\nOriginal:' + str(s)[2:-1]
-    info2 = 'Base16 encode:' + str(encode)[2:-1]
+    encode = tools.change2Str(encode)
+    info1='\nOriginal:' + origin
+    info2 = 'Base16 encode:' + encode
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
 
 
 # 将base16编码格式转化为正常的字符类型
 def b16ToString(s):
+    origin = tools.change2Str(s)
+    s = tools.change2Bytes(s)
     decode = base64.b16decode(s)
-    info1='\nBase16:' + str(s)[2:-1]
-    info2 = 'Base16 decode:' + str(decode)[2:-1]
+    decode = tools.change2Str(decode)
+    info1='\nBase16:' + origin
+    info2 = 'Base16 decode:' + decode
     printc.printf(info1, 'blue')
     printc.printf(info2, 'green')
 
@@ -367,9 +384,16 @@ def urlEncode(s):
 
 
 
-#进行url编码
+#进行url解码
 def urlDecode(s):
-    decode = urllib.parse.unquote(s)
+    decode=''
+    p = '%[0-9]+'
+    for i in re.findall(p,s):
+        res = tools.change2Str(urllib.parse.unquote(i))
+        if res =="\x08":
+            decode = decode + " "
+        else:
+            decode = decode + res 
     info1='\nURL encode:' + s
     info2 = 'URL decode:' + decode
     printc.printf(info1, 'blue')
@@ -469,10 +493,16 @@ def decToHex(s):
 #将字母转化为对应的ASCII
 
 def lettToASCII(s):
+   original=s
+   p="[\w\W]"
+   p1=" "
+   if len(re.findall(p1,s))>=2:
+       s=s.replace(" ",'')
+   s=re.findall(p,s)
    result = ''
    for i in s:
        result = result+str(ord(i)) + ' '
-   info1='\nLetters:'+s
+   info1='\nLetters:'+original
    info2 = 'ASCII  :'+result
    printc.printf(info1, 'blue')
    printc.printf(info2, 'green')
@@ -679,6 +709,6 @@ if __name__=='__main__':
     # htmlencode("Q B n d")
     # htmldecode("&#81;&#32;&#66;&#32;&#110;&#32;&#100;")
     menu()
-
-
+    # s=noAlphaPayload.withoutAlphas("assert_","`")
+    # print(s)
 

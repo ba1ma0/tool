@@ -19,6 +19,11 @@ def importModules():
 
 # 将字母转化为对应的ASCII
 def lettToASCII(s):
+    p="[\w\W]"
+    p1=" "
+    if len(re.findall(p1,s))>=2:
+       s=s.replace(" ",'')
+    s=re.findall(p,s)
     result = ''
     for i in s:
         result = result + str(ord(i)) + ' '
@@ -87,3 +92,36 @@ def delUseless(add):
     except:
         msg1="[-] 是不是路径输错了呢?"
         printc.printf(msg1,"red")
+#将字符串设定为统一长度
+def setStr2SameLen(length,string):
+    length=length-len(string)
+    for i in range(length):
+        string=string+' '
+    return string
+#将字符串转化为数组
+def string2arr(strs):
+    s=[]
+    for i in strs:
+        s.append(i)
+    return s
+#字符串中是否含有字母
+def ifHasLetters(str):
+    p='[a-zA-Z]+'
+    res=re.findall(p,str)
+    if len(res)>=1:
+        return True
+    else:
+        return False
+#不管是什么类型都将其转化为bytes类型
+def change2Bytes(s):
+    if type(s) == bytes:
+        return s
+    else:
+        s = bytes(s,encoding="utf-8")
+        return s 
+#不管是什么类型都将其转化为str类型
+def change2Str(s):
+    if type(s) == str:
+        return s
+    else:
+        return str(s,encoding="utf-8")
