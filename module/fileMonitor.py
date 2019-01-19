@@ -10,19 +10,18 @@ try:
     from watchdog.observers import Observer
     from watchdog.events import LoggingEventHandler,FileSystemEventHandler
 except:
-    msg="\n[-] 检测到你还没有安装依赖包PIL,请使用命令pip install PIL 进行安装"
+    msg="\n[-] 检测到你还没有安装依赖包watchdog,请使用命令pip install watchdog 进行安装"
     printc.printf(msg,'red')
 #该函数主要是检测某文件夹中文件的变化情况    
 def showChangeInfo(path):
     msg = """ 
-  ______ _ _                              _ _             _                   
- |  ____(_| |                            (_| |           (_)                  
- | |__   _| | ___   _ __ ___   ___  _ __  _| |_ ___  _ __ _ _ __   __ _       
- |  __| | | |/ _ \ | '_ ` _ \ / _ \| '_ \| | __/ _ \| '__| | '_ \ / _` |      
- | |    | | |  __/ | | | | | | (_) | | | | | || (_) | |  | | | | | (_| |_ _ _ 
- |_|    |_|_|\___| |_| |_| |_|\___/|_| |_|_|\__\___/|_|  |_|_| |_|\__, (_(_(_)
-                                                                   __/ |      
-                                                                  |___/       
+  ______ _ _                              _ _                          
+ |  ____(_| |                            (_| |                         
+ | |__   _| | ___   _ __ ___   ___  _ __  _| |_ ___  _ __   
+ |  __| | | |/ _ \ | '_ ` _ \ / _ \| '_ \| | __/ _ \| '__|   
+ | |    | | |  __/ | | | | | | (_) | | | | | || (_) | |  
+ |_|    |_|_|\___| |_| |_| |_|\___/|_| |_|_|\__\___/|_|  
+    
 """
     printc.printf(msg,'yellow')
     class LoggingEventHandler(FileSystemEventHandler):
