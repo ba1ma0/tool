@@ -25,29 +25,31 @@
        -db16     Base16 decode
        -urlen    URL encode
        -urlde    URL decode
-       -unien    Unicode Encode                 Example:  -unien    "A"        Result: \u0061
-       -unide    Unicode Decode                 Example:  -unide    "\u0061"   Result: A
+       -unien    Unicode Encode                 Example:  -unien    "A"        Result: \\u0061
+       -unide    Unicode Decode                 Example:  -unide    "\\u0061"   Result: A
        -hten     HTML Encode                    Example:  -hten    "A"         Result: &#97;
        -htde     HTML Decode                    Example:  -htde    "&#97"      Result: A
        -bin      Binary To Decimal
        -octal    Octal Decimal to Decimal
        -hex      Hexadecimal to Decimal
-       -dbin     Decimal To Binary
-       -doctal   Decimal to Octal
+       -dbin     Decimal To Binary 
+       -doctal   Decimal to Octal 
        -dhex     Decimal to Hexadecimal
+       -ip2int   Convert IP to Decimal           Example:  -ip2int  127.0.0.1
+       -int2ip   Convert int to IP               Example:  -int2ip  2130706433
        -ord      Letter To ASCII  attention      Example:  -ord asdfasfa      -ord "dfafs afasfa  asfasf"
        -chr      ASCII  To Letters               Example:  -chr 105           -chr "102 258 654"
        -roten    Rot Encode                      Example:  -roten dafsdfa -offset 13  Means rot_13 Encode
        -rotde    Rot Decode                      Example:  -rotde dafsdfa -offset 13  Means rot_13 Decode
-       -offset   Rot Encode or Decode Offset
+       -offset   Rot Encode or Decode Offset     
        -gqr      Generate QRcode images          Example:  -gqr  "I love you"
-       -pqr      Parse QRcode  images            Example:  -pqr  "C:\QR.png"
-       -add      File address                    Example:  -add  "C:\1.txt"
-       -delete   Delete File's repeated info     Example:  -del  "C:\1.txt"
-       -r2i      Convert RGB txt to Images       Example:  -r2i  "C:\rgb.txt" -x 100 -y 200
-       -monitor  Directory file changes monitor  Example:  -monitor  "C:\directory"
-       -x      X
-       -y      y
+       -pqr      Parse QRcode  images            Example:  -pqr  "C:\\QR.png"  
+       -add      File address                    Example:  -add  "C:\\1.txt"
+       -delete   Delete File's repeated info     Example:  -del  "C:\\1.txt" 
+       -r2i      Convert RGB txt to Images       Example:  -r2i  "C:\\rgb.txt" -x 100 -y 200   
+       -monitor  Directory file changes monitor  Example:  -monitor  "C:\directory" 
+       -x      X 
+       -y      y   
 
 
 优     点:小巧,方便,强大，常见的编码方式应有尽有.
@@ -87,29 +89,31 @@ What you need to do is just type python tool.py and then you can get the result 
        -db16     Base16 decode
        -urlen    URL encode
        -urlde    URL decode
-       -unien    Unicode Encode                 Example:  -unien    "A"        Result: \u0061
-       -unide    Unicode Decode                 Example:  -unide    "\u0061"   Result: A
+       -unien    Unicode Encode                 Example:  -unien    "A"        Result: \\u0061
+       -unide    Unicode Decode                 Example:  -unide    "\\u0061"   Result: A
        -hten     HTML Encode                    Example:  -hten    "A"         Result: &#97;
        -htde     HTML Decode                    Example:  -htde    "&#97"      Result: A
        -bin      Binary To Decimal
        -octal    Octal Decimal to Decimal
        -hex      Hexadecimal to Decimal
-       -dbin     Decimal To Binary
-       -doctal   Decimal to Octal
+       -dbin     Decimal To Binary 
+       -doctal   Decimal to Octal 
        -dhex     Decimal to Hexadecimal
+       -ip2int   Convert IP to Decimal           Example:  -ip2int  127.0.0.1
+       -int2ip   Convert int to IP               Example:  -int2ip  2130706433
        -ord      Letter To ASCII  attention      Example:  -ord asdfasfa      -ord "dfafs afasfa  asfasf"
        -chr      ASCII  To Letters               Example:  -chr 105           -chr "102 258 654"
        -roten    Rot Encode                      Example:  -roten dafsdfa -offset 13  Means rot_13 Encode
        -rotde    Rot Decode                      Example:  -rotde dafsdfa -offset 13  Means rot_13 Decode
-       -offset   Rot Encode or Decode Offset
+       -offset   Rot Encode or Decode Offset     
        -gqr      Generate QRcode images          Example:  -gqr  "I love you"
-       -pqr      Parse QRcode  images            Example:  -pqr  "C:\QR.png"
-       -add      File address                    Example:  -add  "C:\1.txt"
-       -delete   Delete File's repeated info     Example:  -del  "C:\1.txt"
-       -r2i      Convert RGB txt to Images       Example:  -r2i  "C:\rgb.txt" -x 100 -y 200
-       -monitor  Directory file changes monitor  Example:  -monitor  "C:\directory"
-       -x      X
-       -y      y
+       -pqr      Parse QRcode  images            Example:  -pqr  "C:\\QR.png"  
+       -add      File address                    Example:  -add  "C:\\1.txt"
+       -delete   Delete File's repeated info     Example:  -del  "C:\\1.txt" 
+       -r2i      Convert RGB txt to Images       Example:  -r2i  "C:\\rgb.txt" -x 100 -y 200   
+       -monitor  Directory file changes monitor  Example:  -monitor  "C:\directory" 
+       -x      X 
+       -y      y   
 Advantage:small but powerful ,it includes most of usual encoding methods
 
 For example: python tool.py -urlen="Hello English" then you can get as follows

@@ -4,7 +4,7 @@
 # Author: 白猫 <cyber-security@qq.com>
 # Date: 2019-1-18 13:57:54
 import hashlib,base64,string,os,sys,time,logging,string,re
-from module import tools,argparse,random,printc,noAlphaPayload,fileMonitor
+from module import tools,argparse,random,printc,noAlphaPayload,fileMonitor,ip2Int
 try:
     import PIL
     from PIL import Image
@@ -53,11 +53,13 @@ def menu():
        -dbin     Decimal To Binary 
        -doctal   Decimal to Octal 
        -dhex     Decimal to Hexadecimal
+       -ip2int   Convert IP to Decimal           Example:  -ip2int  127.0.0.1
+       -int2ip   Convert int to IP               Example:  -int2ip  2130706433
        -ord      Letter To ASCII  attention      Example:  -ord asdfasfa      -ord "dfafs afasfa  asfasf"
        -chr      ASCII  To Letters               Example:  -chr 105           -chr "102 258 654"
        -roten    Rot Encode                      Example:  -roten dafsdfa -offset 13  Means rot_13 Encode
        -rotde    Rot Decode                      Example:  -rotde dafsdfa -offset 13  Means rot_13 Decode
-       -offset   Rot Encode or Decode Offset  
+       -offset   Rot Encode or Decode Offset     
        -gqr      Generate QRcode images          Example:  -gqr  "I love you"
        -pqr      Parse QRcode  images            Example:  -pqr  "C:\\QR.png"  
        -add      File address                    Example:  -add  "C:\\1.txt"
@@ -93,6 +95,10 @@ def menu():
     parser.add_argument('-dbin', dest='dbin', help='Decimal To Binary ')
     parser.add_argument('-doctal', dest='doctal', help='Decimal to Octal ')
     parser.add_argument('-dhex', dest='dhex', help='Decimal to Hexadecimal')
+
+    parser.add_argument('-ip2int', dest='ip2int', help='Convert IP to Decimal ')
+    parser.add_argument('-int2ip', dest='int2ip', help='Convert Decimal to IP ')
+    
     parser.add_argument('-ord', dest='ord', help="Letter To ASCII               Example:  -ord aaaaaa  , -ord=\"aaa aaa\"")
     parser.add_argument('-chr', dest='chr', help="ASCII  To Letter              Example:  -chr 105     ,  -chr = \"101 101\" ")
     parser.add_argument('-roten',dest='roten', help='Rot Encode                      Example:  -roten dafsdfa -offset 13  Means rot_13 Encode')
@@ -156,12 +162,22 @@ def menu():
     elif options.dhex:
         s = options.dhex
         decToHex(s)
-    elif options.doctal:
-        s = options.doctal
-        decToOct(s)
-    elif options.dhex:
-        s = options.dhex
-        decToHex(s)
+    elif options.ip2int:
+        ip = options.ip2int
+        ip_int = ip2Int.ip2int(ip)
+        msg1 = "IP:" + str(ip)
+        msg2 = "Decimal:" + str(ip_int)
+        printc.printf(msg1,'blue')
+        printc.printf(msg2,'green')
+
+    elif options.int2ip:
+        decimal = options.int2ip
+        ip   = ip2Int.int2ip(str(decimal))
+        msg1 = "Decimal:" + str(decimal)
+        msg2 = "IP:" + str(ip)
+        printc.printf(msg1,'blue')
+        printc.printf(msg2,'green')
+
     elif options.ord:
         s = options.ord
         lettToASCII(s)
@@ -236,7 +252,6 @@ def menu():
 
 def helpInfo():
     printc.printf("""++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-       -m        MD5  encryption
        -s        SH1 encryption
        -help     Show help information
        -b64      Base64 encode
@@ -257,11 +272,13 @@ def helpInfo():
        -dbin     Decimal To Binary 
        -doctal   Decimal to Octal 
        -dhex     Decimal to Hexadecimal
+       -ip2int   Convert IP to Decimal           Example:  -ip2int  127.0.0.1
+       -int2ip   Convert int to IP               Example:  -int2ip  2130706433
        -ord      Letter To ASCII  attention      Example:  -ord asdfasfa      -ord "dfafs afasfa  asfasf"
        -chr      ASCII  To Letters               Example:  -chr 105           -chr "102 258 654"
        -roten    Rot Encode                      Example:  -roten dafsdfa -offset 13  Means rot_13 Encode
        -rotde    Rot Decode                      Example:  -rotde dafsdfa -offset 13  Means rot_13 Decode
-       -offset   Rot Encode or Decode Offset  
+       -offset   Rot Encode or Decode Offset     
        -gqr      Generate QRcode images          Example:  -gqr  "I love you"
        -pqr      Parse QRcode  images            Example:  -pqr  "C:\\QR.png"  
        -add      File address                    Example:  -add  "C:\\1.txt"
