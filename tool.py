@@ -252,6 +252,7 @@ def menu():
 
 def helpInfo():
     printc.printf("""++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+       -m        MD5 encryption
        -s        SH1 encryption
        -help     Show help information
        -b64      Base64 encode
