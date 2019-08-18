@@ -1,4 +1,4 @@
-import re
+import re,os
 from module import printc
 #匹配输入的数据 例如输入 123,12,11程序匹配之后返回['123','12','11']列表
 def split2List(s):
@@ -126,3 +126,29 @@ def change2Str(s):
     else:
         return str(s,encoding="utf-8")
 
+#批量修改某文件夹下某文件后缀  例如   123.txt  ->  123.py
+#写这个函数的原因是有一次分析webshell时,拿到的疑似木马的文件全是txt,但是我要转化为jsp,php文件这时工作量就很大,就想有个工具就很棒了
+def rename(path,old_ext,new_ext):
+    # path= input("请输入要处理的文件夹路径")
+    # print (path)
+    print("\n")
+    old_ext= "." + str(old_ext)
+    # print (old_ext)
+    new_ext= "." + str(new_ext)
+    # print (new_ext)
+    for (path, dirs, files) in os.walk(path):#遍历目录树
+        for filename in files:
+            ext = os.path.splitext(filename)[1]#取得文件类型，注意它还带着点号
+            #print (ext)
+            if(ext == old_ext):
+                #print ("----------------")
+                newname = filename.replace(old_ext, new_ext)
+                oldpath = path+ "\\" + filename
+                newpath = path+ "\\" + newname
+                msg     = "[+] %s  ->  %s"%(oldpath,newpath)
+                # print(msg)
+                printc.printf(msg,"green")    
+                try:   
+                    os.rename(oldpath, newpath)
+                except :
+                   print(str(e))

@@ -32,48 +32,10 @@ visibleCharacter={
 }
 
 def menu():
-    usage = """  -m MD5 encryption
-       -s        SH1 encryption
-       -help     Show help information
-       -b64      Base64 encode
-       -b32      Base32 encode
-       -b16      Base16 encode
-       -db64     Base64 decode
-       -db32     Base32 decode
-       -db16     Base16 decode
-       -urlen    URL encode
-       -urlde    URL decode
-       -unien    Unicode Encode                 Example:  -unien    "A"        Result: \\u0061
-       -unide    Unicode Decode                 Example:  -unide    "\\u0061"   Result: A
-       -hten     HTML Encode                    Example:  -hten    "A"         Result: &#97;
-       -htde     HTML Decode                    Example:  -htde    "&#97"      Result: A
-       -bin      Binary To Decimal
-       -octal    Octal Decimal to Decimal
-       -hex      Hexadecimal to Decimal
-       -dbin     Decimal To Binary 
-       -doctal   Decimal to Octal 
-       -dhex     Decimal to Hexadecimal
-       -ip2int   Convert IP to Decimal           Example:  -ip2int  127.0.0.1
-       -int2ip   Convert int to IP               Example:  -int2ip  2130706433
-       -ord      Letter To ASCII  attention      Example:  -ord asdfasfa      -ord "dfafs afasfa  asfasf"
-       -chr      ASCII  To Letters               Example:  -chr 105           -chr "102 258 654"
-       -roten    Rot Encode                      Example:  -roten dafsdfa -offset 13  Means rot_13 Encode
-       -rotde    Rot Decode                      Example:  -rotde dafsdfa -offset 13  Means rot_13 Decode
-       -offset   Rot Encode or Decode Offset     
-       -gqr      Generate QRcode images          Example:  -gqr  "I love you"
-       -pqr      Parse QRcode  images            Example:  -pqr  "C:\\QR.png"  
-       -add      File address                    Example:  -add  "C:\\1.txt"
-       -delete   Delete File's repeated info     Example:  -del  "C:\\1.txt" 
-       -r2i      Convert RGB txt to Images       Example:  -r2i  "C:\\rgb.txt" -x 100 -y 200   
-       -monitor  Directory file changes monitor  Example:  -monitor  "C:\directory" 
-       -x      X 
-       -y      y   
-      """
-
     #在使用ord 和chr命令的时候要注意如果输入的字符和数字不包含空格则直接实用例子前面的命令如果包含空格则使用后面的命令
 
     parser = argparse.ArgumentParser()
-
+#Encoding&Decoding
     parser.add_argument('-m',dest='md',help='MD5 encryption')
     parser.add_argument('-s', dest='sh', help='SH1 encryption')
     parser.add_argument('-help', action="store_true", help='To show help information')
@@ -95,14 +57,13 @@ def menu():
     parser.add_argument('-dbin', dest='dbin', help='Decimal To Binary ')
     parser.add_argument('-doctal', dest='doctal', help='Decimal to Octal ')
     parser.add_argument('-dhex', dest='dhex', help='Decimal to Hexadecimal')
-
-    parser.add_argument('-ip2int', dest='ip2int', help='Convert IP to Decimal ')
-    parser.add_argument('-int2ip', dest='int2ip', help='Convert Decimal to IP ')
-    
-    parser.add_argument('-ord', dest='ord', help="Letter To ASCII               Example:  -ord aaaaaa  , -ord=\"aaa aaa\"")
-    parser.add_argument('-chr', dest='chr', help="ASCII  To Letter              Example:  -chr 105     ,  -chr = \"101 101\" ")
     parser.add_argument('-roten',dest='roten', help='Rot Encode                      Example:  -roten dafsdfa -offset 13  Means rot_13 Encode')
     parser.add_argument('-rotde', dest='rotde', help='Rot Decode                      Example:  -rotde dafsdfa -offset 13  Means rot_13 Decode')
+#Useful
+    parser.add_argument('-ip2int', dest='ip2int', help='Convert IP to Decimal ')
+    parser.add_argument('-int2ip', dest='int2ip', help='Convert Decimal to IP ')
+    parser.add_argument('-ord', dest='ord', help="Letter To ASCII               Example:  -ord aaaaaa  , -ord=\"aaa aaa\"")
+    parser.add_argument('-chr', dest='chr', help="ASCII  To Letter              Example:  -chr 105     ,  -chr = \"101 101\" ")
     parser.add_argument('-gqr', dest='gqr', help='Generate QRcode images          Example:  -gqr = "I love you"')
     parser.add_argument('-pqr', dest='pqr', help='Parse QRcode  images            Example:  -pqr = "C:\\QR.png"')
     parser.add_argument('-delete', dest='delete', help='Delete File\'s repeated info     Example:  -del  "C:\\1.txt" ')
@@ -111,6 +72,9 @@ def menu():
     parser.add_argument('-monitor', dest='monitor', help='File monitor')
     parser.add_argument('-x', dest='x', help='X')
     parser.add_argument('-y', dest='y', help='y')
+    parser.add_argument('-rename', dest='rename', help='Rename files with 1 same extension to new one Example  : -rename  C:\\test -old_ext txt -new_ext  php')
+    parser.add_argument('-old_ext', dest='old_ext', help='Old file extension')
+    parser.add_argument('-new_ext', dest='new_ext', help='New file extension')
     parser.add_argument('-offset', dest='offset', type=int,help=' ')
     # try:
     options = parser.parse_args()
@@ -244,6 +208,21 @@ def menu():
     elif options.monitor:
         path = options.monitor
         fileMonitor.showChangeInfo(path)
+    elif options.rename:
+        path = options.rename
+        old_ext = new_ext = ''
+        if options.old_ext:
+          old_ext   =   str(options.old_ext)
+        else:
+          msg       = "Please input correct file extension"
+          printc.printf(msg,"red")
+        if options.new_ext:
+          new_ext   =   str(options.new_ext)
+        else:
+          msg       = "Please input correct file extension"
+          printc.printf(msg,"red")
+        tools.rename(path,old_ext,new_ext)
+
     else:
         helpInfo()
     # except:
@@ -251,7 +230,21 @@ def menu():
     #     printc.printf(info1,'red')
 
 def helpInfo():
-    printc.printf("""++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    printc.printf("""
+
+                      $$\                         $$\           
+                      $$ |                        $$ |          
+                    $$$$$$\    $$$$$$\   $$$$$$\  $$ | $$$$$$$\ 
+                    \_$$  _|  $$  __$$\ $$  __$$\ $$ |$$  _____|
+                      $$ |    $$ /  $$ |$$ /  $$ |$$ |\$$$$$$\  
+                      $$ |$$\ $$ |  $$ |$$ |  $$ |$$ | \____$$\ 
+                      \$$$$  |\$$$$$$  |\$$$$$$  |$$ |$$$$$$$  |
+                       \____/  \______/  \______/ \__|\_______/ 
+                                                    
+                                                    Author:ba1ma0
+                                                    E-mail:cyber-security@qq.com
+                                      
+Encoding&Decoding:
        -m        MD5 encryption
        -s        SH1 encryption
        -help     Show help information
@@ -273,13 +266,18 @@ def helpInfo():
        -dbin     Decimal To Binary 
        -doctal   Decimal to Octal 
        -dhex     Decimal to Hexadecimal
+       -roten    Rot Encode                      Example:  -roten dafsdfa -offset 13  Means rot_13 Encode
+       -rotde    Rot Decode                      Example:  -rotde dafsdfa -offset 13  Means rot_13 Decode
+
+Useful:
        -ip2int   Convert IP to Decimal           Example:  -ip2int  127.0.0.1
        -int2ip   Convert int to IP               Example:  -int2ip  2130706433
        -ord      Letter To ASCII  attention      Example:  -ord asdfasfa      -ord "dfafs afasfa  asfasf"
        -chr      ASCII  To Letters               Example:  -chr 105           -chr "102 258 654"
-       -roten    Rot Encode                      Example:  -roten dafsdfa -offset 13  Means rot_13 Encode
-       -rotde    Rot Decode                      Example:  -rotde dafsdfa -offset 13  Means rot_13 Decode
-       -offset   Rot Encode or Decode Offset     
+       -offset   Rot Encode or Decode Offset
+       -rename   Rename files with 1 same extension to new one Example  : -rename  C:\\test -old_ext txt -new_ext  php 
+       -old_ext  Old file extension              
+       -new_ext  New file extension
        -gqr      Generate QRcode images          Example:  -gqr  "I love you"
        -pqr      Parse QRcode  images            Example:  -pqr  "C:\\QR.png"  
        -add      File address                    Example:  -add  "C:\\1.txt"
@@ -288,7 +286,7 @@ def helpInfo():
        -monitor  Directory file changes monitor  Example:  -monitor  "C:\directory" 
        -x      X 
        -y      y   
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++""","skyblue")
+""","yellow")
 
 # 进行MD5加密
 def md5(s):
@@ -550,10 +548,7 @@ def rotEncode(st,offset):
         return f(97) if ch.islower() else (f(65) if ch.isupper() else ch)
     return ''.join(rot(c) for c in st)
 
-
-
 #Rot类型的解密：rot加密的逆向过程
-
 def rotDecode(st,offset):
     def rot(ch):
         f = lambda x : chr((ord(ch)-x-offset)%26+x)

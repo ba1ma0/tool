@@ -1,6 +1,9 @@
 ﻿﻿中文说明:
 ========
-## 更新日志
+## 更新日志 2019-8-18 20:19:16
+1. 新增批量修改文件夹文件后缀功能,并且重新排版工具,更加便于使用
+
+## 更新日志 2019-7-18 20:19:16
 1. 新增文件夹监视器功能,以便用于日志审计 python tool.py -monitor C:\\
 2. 新增将含有rgb值的txt文件转化为png照片的实用功能 python tool.py -r2i  "C:\rgb.txt" -x 100 -y 200
 3. 新增去重功能,可以使用-delete 1.txt 将该文件中所有重复的内容删除掉
@@ -13,8 +16,10 @@
 您只需要下载即可使用,因为我已经将需要的东西全部封装起来
 
 您只需要输入python tool.py就可以并且得到如下结果:
+![](https://raw.githubusercontent.com/spacesec/images/master/tool/3.png) 
 	 	
-       -m        MD5  encryption
+    Encoding&Decoding:
+       -m        MD5 encryption
        -s        SH1 encryption
        -help     Show help information
        -b64      Base64 encode
@@ -25,30 +30,34 @@
        -db16     Base16 decode
        -urlen    URL encode
        -urlde    URL decode
-       -unien    Unicode Encode                 Example:  -unien    "A"        Result: \\u0061
-       -unide    Unicode Decode                 Example:  -unide    "\\u0061"   Result: A
+       -unien    Unicode Encode                 Example:  -unien    "A"        Result: \u0061
+       -unide    Unicode Decode                 Example:  -unide    "\u0061"   Result: A
        -hten     HTML Encode                    Example:  -hten    "A"         Result: &#97;
        -htde     HTML Decode                    Example:  -htde    "&#97"      Result: A
        -bin      Binary To Decimal
        -octal    Octal Decimal to Decimal
        -hex      Hexadecimal to Decimal
-       -dbin     Decimal To Binary 
-       -doctal   Decimal to Octal 
+       -dbin     Decimal To Binary
+       -doctal   Decimal to Octal
        -dhex     Decimal to Hexadecimal
+       -roten    Rot Encode                      Example:  -roten dafsdfa -offset 13  Means rot_13 Encode
+       -rotde    Rot Decode                      Example:  -rotde dafsdfa -offset 13  Means rot_13 Decode
+    Useful:
        -ip2int   Convert IP to Decimal           Example:  -ip2int  127.0.0.1
        -int2ip   Convert int to IP               Example:  -int2ip  2130706433
        -ord      Letter To ASCII  attention      Example:  -ord asdfasfa      -ord "dfafs afasfa  asfasf"
        -chr      ASCII  To Letters               Example:  -chr 105           -chr "102 258 654"
-       -roten    Rot Encode                      Example:  -roten dafsdfa -offset 13  Means rot_13 Encode
-       -rotde    Rot Decode                      Example:  -rotde dafsdfa -offset 13  Means rot_13 Decode
-       -offset   Rot Encode or Decode Offset     
+       -offset   Rot Encode or Decode Offset
+       -rename   Rename files with 1 same extension to new one Example  : -rename  C:\test -old_ext txt -new_ext  php
+       -old_ext  Old file extension
+       -new_ext  New file extension
        -gqr      Generate QRcode images          Example:  -gqr  "I love you"
-       -pqr      Parse QRcode  images            Example:  -pqr  "C:\\QR.png"  
-       -add      File address                    Example:  -add  "C:\\1.txt"
-       -delete   Delete File's repeated info     Example:  -del  "C:\\1.txt" 
-       -r2i      Convert RGB txt to Images       Example:  -r2i  "C:\\rgb.txt" -x 100 -y 200   
-       -monitor  Directory file changes monitor  Example:  -monitor  "C:\directory" 
-       -x      X 
+       -pqr      Parse QRcode  images            Example:  -pqr  "C:\QR.png"
+       -add      File address                    Example:  -add  "C:\1.txt"
+       -delete   Delete File's repeated info     Example:  -del  "C:\1.txt"
+       -r2i      Convert RGB txt to Images       Example:  -r2i  "C:\rgb.txt" -x 100 -y 200
+       -monitor  Directory file changes monitor  Example:  -monitor  "C:\directory"
+       -x      X
        -y      y   
 
 
@@ -78,7 +87,8 @@ What you need to do is just download it and use it because i have packaged all t
 
 What you need to do is just type python tool.py and then you can get the result as follows!
 
-       -m        MD5  encryption
+    Encoding&Decoding:
+       -m        MD5 encryption
        -s        SH1 encryption
        -help     Show help information
        -b64      Base64 encode
@@ -89,30 +99,34 @@ What you need to do is just type python tool.py and then you can get the result 
        -db16     Base16 decode
        -urlen    URL encode
        -urlde    URL decode
-       -unien    Unicode Encode                 Example:  -unien    "A"        Result: \\u0061
-       -unide    Unicode Decode                 Example:  -unide    "\\u0061"   Result: A
+       -unien    Unicode Encode                 Example:  -unien    "A"        Result: \u0061
+       -unide    Unicode Decode                 Example:  -unide    "\u0061"   Result: A
        -hten     HTML Encode                    Example:  -hten    "A"         Result: &#97;
        -htde     HTML Decode                    Example:  -htde    "&#97"      Result: A
        -bin      Binary To Decimal
        -octal    Octal Decimal to Decimal
        -hex      Hexadecimal to Decimal
-       -dbin     Decimal To Binary 
-       -doctal   Decimal to Octal 
+       -dbin     Decimal To Binary
+       -doctal   Decimal to Octal
        -dhex     Decimal to Hexadecimal
+       -roten    Rot Encode                      Example:  -roten dafsdfa -offset 13  Means rot_13 Encode
+       -rotde    Rot Decode                      Example:  -rotde dafsdfa -offset 13  Means rot_13 Decode
+    Useful:
        -ip2int   Convert IP to Decimal           Example:  -ip2int  127.0.0.1
        -int2ip   Convert int to IP               Example:  -int2ip  2130706433
        -ord      Letter To ASCII  attention      Example:  -ord asdfasfa      -ord "dfafs afasfa  asfasf"
        -chr      ASCII  To Letters               Example:  -chr 105           -chr "102 258 654"
-       -roten    Rot Encode                      Example:  -roten dafsdfa -offset 13  Means rot_13 Encode
-       -rotde    Rot Decode                      Example:  -rotde dafsdfa -offset 13  Means rot_13 Decode
-       -offset   Rot Encode or Decode Offset     
+       -offset   Rot Encode or Decode Offset
+       -rename   Rename files with 1 same extension to new one Example  : -rename  C:\test -old_ext txt -new_ext  php
+       -old_ext  Old file extension
+       -new_ext  New file extension
        -gqr      Generate QRcode images          Example:  -gqr  "I love you"
-       -pqr      Parse QRcode  images            Example:  -pqr  "C:\\QR.png"  
-       -add      File address                    Example:  -add  "C:\\1.txt"
-       -delete   Delete File's repeated info     Example:  -del  "C:\\1.txt" 
-       -r2i      Convert RGB txt to Images       Example:  -r2i  "C:\\rgb.txt" -x 100 -y 200   
-       -monitor  Directory file changes monitor  Example:  -monitor  "C:\directory" 
-       -x      X 
+       -pqr      Parse QRcode  images            Example:  -pqr  "C:\QR.png"
+       -add      File address                    Example:  -add  "C:\1.txt"
+       -delete   Delete File's repeated info     Example:  -del  "C:\1.txt"
+       -r2i      Convert RGB txt to Images       Example:  -r2i  "C:\rgb.txt" -x 100 -y 200
+       -monitor  Directory file changes monitor  Example:  -monitor  "C:\directory"
+       -x      X
        -y      y   
 Advantage:small but powerful ,it includes most of usual encoding methods
 
