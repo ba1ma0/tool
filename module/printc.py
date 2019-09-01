@@ -1,4 +1,3 @@
-#! /usr/bin/env python
 # coding=utf-8
 
 import ctypes, sys ,platform
@@ -197,7 +196,8 @@ def printf(string,color):
             printYellow(string)
         elif color=="white":
             printWhite(string)
-    elif "Linux" in systeminfo:
+    else:      
+    # elif "Linux" in systeminfo:
         #print("Current OS is Linux")
         STYLE = {
                 'fore':

@@ -5,12 +5,6 @@
 # Date: 2019-1-18 13:57:54
 import hashlib,base64,string,os,sys,time,logging,string,re
 from module import tools,argparse,random,printc,noAlphaPayload,fileMonitor,ip2Int
-try:
-    import PIL
-    from PIL import Image
-except:
-    msg="\n[-] 检测到你还没有安装依赖包PIL,请使用命令pip install PIL 进行安装"
-    printc.printf(msg,'red')
 
 presentAdd = os.getcwd()
 sys.path.append(presentAdd+"\\module\\urllib")
@@ -131,7 +125,7 @@ def menu():
         ip_int = ip2Int.ip2int(ip)
         msg1 = "IP:" + str(ip)
         msg2 = "Decimal:" + str(ip_int)
-        printc.printf(msg1,'blue')
+        printc.printf(msg1,'green')
         printc.printf(msg2,'green')
 
     elif options.int2ip:
@@ -139,7 +133,7 @@ def menu():
         ip   = ip2Int.int2ip(str(decimal))
         msg1 = "Decimal:" + str(decimal)
         msg2 = "IP:" + str(ip)
-        printc.printf(msg1,'blue')
+        printc.printf(msg1,'green')
         printc.printf(msg2,'green')
 
     elif options.ord:
@@ -153,14 +147,14 @@ def menu():
         offset = options.offset
         msg1="\nOrigina    :"+s
         msg2="Rot{offset} Encode:".format(offset=offset)+rotEncode(s,offset)
-        printc.printf(msg1,'blue')
+        printc.printf(msg1,'green')
         printc.printf(msg2,'green')
     elif options.rotde and options.offset:
         s = options.rotde
         offset = options.offset
         msg1="\nRot_{offset} Encode:".format(offset=offset) + s
         msg2="Rot_{offset} Decode:".format(offset=offset)+ str(rotDecode(s, offset))
-        printc.printf(msg1,"blue")
+        printc.printf(msg1,"green")
         printc.printf(msg2,"green")
     elif options.gqr:
         print()
@@ -296,7 +290,7 @@ def md5(s):
     md.update(s)
     info1='\nOriginal:'+original
     info2='Md5 Encryption:'+md.hexdigest()
-    printc.printf(info1,'blue')
+    printc.printf(info1,'green')
     printc.printf(info2,'green')
 
 #进行sh1加密
@@ -306,7 +300,7 @@ def sh1(s):
     s = s.encode(encoding='utf-8')
     info1='\nOriginal:' + original
     info2='SH1 Encryption:' + sh.hexdigest()
-    printc.printf(info1, 'blue')
+    printc.printf(info1, 'green')
     printc.printf(info2, 'green')
 
 #将字符串转换为base64编码格式
@@ -317,7 +311,7 @@ def stringToB64(s):
     res = tools.change2Str(res)
     info1='\nOriginal:' + origin
     info2 = 'Base64 encode:' + res
-    printc.printf(info1, 'blue')
+    printc.printf(info1, 'green')
     printc.printf(info2, 'green')
 
 #将base64编码格式转化为正常的字符类型
@@ -327,7 +321,7 @@ def b64ToString(s):
     decode = tools.change2Str(decode)
     info1='\nBase64:' + origin
     info2 = 'Base64 decode:' + decode
-    printc.printf(info1, 'blue')
+    printc.printf(info1, 'green')
     printc.printf(info2, 'green')
 
 #将字符串转为b32编码格式
@@ -338,7 +332,7 @@ def stringToB32(s):
     encode = tools.change2Str(encode)
     info1='\nOriginal:' + origin
     info2 = 'Base32 encode:' + encode
-    printc.printf(info1, 'blue')
+    printc.printf(info1, 'green')
     printc.printf(info2, 'green')
 
     
@@ -349,7 +343,7 @@ def b32ToString(s):
     decode = tools.change2Str(decode)
     info1='\nBase32:' + origin
     info2 = 'Base32 decode:' + decode
-    printc.printf(info1, 'blue')
+    printc.printf(info1, 'green')
     printc.printf(info2, 'green')
 
 
@@ -361,7 +355,7 @@ def stringToB16(s):
     encode = tools.change2Str(encode)
     info1='\nOriginal:' + origin
     info2 = 'Base16 encode:' + encode
-    printc.printf(info1, 'blue')
+    printc.printf(info1, 'green')
     printc.printf(info2, 'green')
 
 
@@ -373,7 +367,7 @@ def b16ToString(s):
     decode = tools.change2Str(decode)
     info1='\nBase16:' + origin
     info2 = 'Base16 decode:' + decode
-    printc.printf(info1, 'blue')
+    printc.printf(info1, 'green')
     printc.printf(info2, 'green')
 
 def isVisibleCharacter(s):
@@ -396,7 +390,7 @@ def urlEncode(s):
             encodeString=encodeString+urllib.parse.quote(i)
     info1='\nOriginal:' + s
     info2 = 'URL encode:' + encodeString
-    printc.printf(info1, 'blue')
+    printc.printf(info1, 'green')
     printc.printf(info2, 'green')
 
 
@@ -413,7 +407,7 @@ def urlDecode(s):
             decode = decode + res 
     info1='\nURL encode:' + s
     info2 = 'URL decode:' + decode
-    printc.printf(info1, 'blue')
+    printc.printf(info1, 'green')
     printc.printf(info2, 'green')
 
 
@@ -427,7 +421,7 @@ def binToDec(s):
         result = result+" "+str(int(i,2))
     info1='\nBinary :'+str(original)
     info2 = 'Decimal :' + str(result)
-    printc.printf(info1, 'blue')
+    printc.printf(info1, 'green')
     printc.printf(info2, 'green')
 
 
@@ -441,7 +435,7 @@ def octToDec(s):
         result = result+" "+str(int(i, 8))
     info1='\nOctal :' + str(original)
     info2 = 'Decimal :' + str(result)
-    printc.printf(info1, 'blue')
+    printc.printf(info1, 'green')
     printc.printf(info2, 'green')
 
 
@@ -455,7 +449,7 @@ def hexToDec(s):
         result = result+" "+str(int(i, 16))
     info1='\nHex :' + str(original)
     info2 = 'Decimal :' + str(result)
-    printc.printf(info1, 'blue')
+    printc.printf(info1, 'green')
     printc.printf(info2, 'green')
 
 
@@ -470,7 +464,7 @@ def decToBin(s):
         result =result+ " "+bin(i)
     info1='\nDecimal:' + str(original)
     info2 = 'Binary:' + str(result)
-    printc.printf(info1, 'blue')
+    printc.printf(info1, 'green')
     printc.printf(info2, 'green')
 
 # 测试
@@ -488,7 +482,7 @@ def decToOct(s):
         result = result+" "+oct(i)
     info1='\nDecimal :' + str(original)
     info2 = 'Octal :' + str(result)
-    printc.printf(info1, 'blue')
+    printc.printf(info1, 'green')
     printc.printf(info2, 'green')
 
 
@@ -503,7 +497,7 @@ def decToHex(s):
         result = result+" "+hex(i)
     info1='\nDecimal :' + str(original)
     info2 = 'Hex :' + str(result)
-    printc.printf(info1, 'blue')
+    printc.printf(info1, 'green')
     printc.printf(info2, 'green')
 
 
@@ -521,7 +515,7 @@ def lettToASCII(s):
        result = result+str(ord(i)) + ' '
    info1='\nLetters:'+original
    info2 = 'ASCII  :'+result
-   printc.printf(info1, 'blue')
+   printc.printf(info1, 'green')
    printc.printf(info2, 'green')
 
 
@@ -536,7 +530,7 @@ def asciiToLett(s):
 
    info1='\nASCII    :'+s
    info2 = 'Letters  :'+result
-   printc.printf(info1, 'blue')
+   printc.printf(info1, 'green')
    printc.printf(info2, 'green')
 
 
@@ -560,7 +554,7 @@ def generateQR(data):
     QRImagePath =os.getcwd()+"/qrcode.png"
     info1="\n照片存储在:"+QRImagePath
     info2="信息:"+data
-    printc.printf(info1,"blue")
+    printc.printf(info1,"green")
     printc.printf(info2,"green")
     qr = qrcode.QRCode(
         version=1,
@@ -592,7 +586,7 @@ def parseQR(filename):
     zxdata = zx.decode('%s%s.jpg' % (os.path.basename(filename).split('.')[0], ran))
     info1="\n二维码路径:"+filename
     info2="二维码详情:"+str(zxdata)
-    printc.printf(info1,"blue")
+    printc.printf(info1,"green")
     printc.printf(info2,"green")
 
 #将字符串进行unicode编码
@@ -605,7 +599,7 @@ def uniencode(s):
     info1="\nString       : "+original
     info2="UnicodeEncode: "+s
 
-    printc.printf(info1, "blue")
+    printc.printf(info1, "green")
     printc.printf(info2, "green")
 
 #将unicode编码格式的字符串解码为正常的字符串
@@ -635,7 +629,7 @@ def unidecode(s):
 
     info1 = "String:      " + original
     info2 = "UnicodeDecode:  " + s
-    printc.printf(info1, "blue")
+    printc.printf(info1, "green")
     printc.printf(info2, "green")
 
 def htmlencode(s):
@@ -649,7 +643,7 @@ def htmlencode(s):
 
     info1="\nOriginal String: "+original
     info2="HTML   Encoding: "+s
-    printc.printf(info1, "blue")
+    printc.printf(info1, "green")
     printc.printf(info2, "green")
 
 def htmldecode(s):
@@ -667,7 +661,7 @@ def htmldecode(s):
     s=tools.asciiToLett(s)
     info1="\nHTML Encode:"+original
     info2="HTML Decode:"+s
-    printc.printf(info1, "blue")
+    printc.printf(info1, "green")
     printc.printf(info2, "green")
 #根据含有rgb值的txt文件转化为png照片
 
@@ -692,7 +686,7 @@ def rgb2png(x,y,add):
         # os.system(' %s' % file_name)
         info1="\n源RGB文件地址 :  "+add
         info2="生成PNG的地址 :  "+file_add
-        printc.printf(info1, "blue")
+        printc.printf(info1, "green")
         printc.printf(info2, "green")
     except:
         info1="\n\n[-] 您输入的x和y值可能不合适,再试一下其他x y组合吧,注意xy相乘结果应该等于txt文件的总行数"
@@ -714,7 +708,7 @@ def png2rgb(add):
     f.close
     info1="\n源照片地址:  "+add
     info2="生成RGB的txt文件地址:"+file_add
-    printc.printf(info1, "blue")
+    printc.printf(info1, "green")
     printc.printf(info2, "green")
 
 if __name__=='__main__':

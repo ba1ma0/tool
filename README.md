@@ -16,7 +16,7 @@
 您只需要下载即可使用,因为我已经将需要的东西全部封装起来
 
 您只需要输入python tool.py就可以并且得到如下结果:
-![](https://raw.githubusercontent.com/spacesec/images/master/tool/3.png) 
+![](https://raw.githubusercontent.com/ba1ma0/images/master/tool/3.png) 
 	 	
     Encoding&Decoding:
        -m        MD5 encryption
