@@ -60,7 +60,7 @@ def menu():
     parser.add_argument('-chr', dest='chr', help="ASCII  To Letter              Example:  -chr 105     ,  -chr = \"101 101\" ")
     parser.add_argument('-gqr', dest='gqr', help='Generate QRcode images          Example:  -gqr = "I love you"')
     parser.add_argument('-pqr', dest='pqr', help='Parse QRcode  images            Example:  -pqr = "C:\\QR.png"')
-    parser.add_argument('-delete', dest='delete', help='Delete File\'s repeated info     Example:  -del  "C:\\1.txt" ')
+    parser.add_argument('-delete', dest='delete', help='Delete File\'s repeated info     Example:  -delete  "C:\\1.txt" ')
     parser.add_argument('-i2r', dest='i2r', help='Convert Image to RGB txt        Example:  -i2r = "C:\\png.png"')
     parser.add_argument('-r2i', dest='r2i', help='Convert RGB txt to Images       Example:  -r2i = "C:\\rgb.txt" -x 100 -y 200 ')
     parser.add_argument('-monitor', dest='monitor', help='File monitor')
@@ -275,7 +275,7 @@ Useful:
        -gqr      Generate QRcode images          Example:  -gqr  "I love you"
        -pqr      Parse QRcode  images            Example:  -pqr  "C:\\QR.png"  
        -add      File address                    Example:  -add  "C:\\1.txt"
-       -delete   Delete File's repeated info     Example:  -del  "C:\\1.txt" 
+       -delete   Delete File's repeated info     Example:  -delete  "C:\\1.txt" 
        -r2i      Convert RGB txt to Images       Example:  -r2i  "C:\\rgb.txt" -x 100 -y 200   
        -monitor  Directory file changes monitor  Example:  -monitor  "C:\directory" 
        -x      X 
@@ -305,7 +305,12 @@ def sh1(s):
 
 #将字符串转换为base64编码格式
 def stringToB64(s):
+    space  = chr(0)
     origin = tools.change2Str(s)
+    res    = ""
+    for i in s:
+        res  = res  + str(i) + space
+    s = res
     s = tools.change2Bytes(s)
     res = base64.b64encode(s)
     res = tools.change2Str(res)
