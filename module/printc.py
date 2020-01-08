@@ -1,5 +1,7 @@
 # coding=utf-8
-
+'''
+Windows和Linux
+'''
 import ctypes, sys ,platform
 STD_INPUT_HANDLE = -10
 STD_OUTPUT_HANDLE = -11
@@ -282,7 +284,7 @@ def printf(string,color):
         #     print UseStyle('青蓝色', back = 'cyan'),
         #     print UseStyle('白色',   back = 'white')
         #######################################################################
-        string=string+'\n'
+        #string=string
         if color=="darkblue" or color=="darkblue":
             print(UseStyle(string,fore="blue"))
         if color=="skyblue":
